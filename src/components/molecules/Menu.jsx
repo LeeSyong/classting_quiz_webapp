@@ -14,7 +14,7 @@ function Menu({ menuList, padding, ...props }) {
         {menuList.map(({ name, url }) => (
           <MenuItem key={name} padding={padding}>
             <Link to={`${url}`}>
-              <Text value={name} textAlign="center" />
+              <Text className="medium" value={name} textAlign="center" />
             </Link>
           </MenuItem>
         ))}

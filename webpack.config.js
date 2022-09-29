@@ -18,6 +18,7 @@ module.exports = () => {
       extensions: [".js", ".jsx"],
     },
     devServer: {
+      static: path.resolve(__dirname, "./dist"),
       open: true,
       compress: true,
       hot: true,
@@ -36,6 +37,10 @@ module.exports = () => {
               presets: ["@babel/preset-env", "@babel/preset-react"],
             },
           },
+        },
+        {
+          test: /\.(png|jpg)$/,
+          use: ["file-loader"],
         },
       ],
     },

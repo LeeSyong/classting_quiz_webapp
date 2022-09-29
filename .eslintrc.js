@@ -2,14 +2,20 @@ module.exports = {
   env: {
     browser: true,
     node: true,
-    es2022: true,
+    es2021: true,
   },
   ignorePatterns: ["node_modules/", ".eslintrc.*", "package.json"],
   extends: [
     "eslint:recommended",
     "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:import/recommended",
+    "plugin:jsx-a11y/recommended",
     "plugin:prettier/recommended",
+    "airbnb/hooks",
+    "prettier",
   ],
+  plugins: ["react", "react-hooks", "import", "jsx-a11y"],
   rules: {
     "prettier/prettier": [
       "error",

@@ -6,7 +6,7 @@ import Menu from "../molecules/Menu";
 import Image from "../atoms/Image";
 
 import palette from "../../styles/palette";
-import { menuList } from "../../constants/menu";
+import { MENU_LIST } from "../../constants/menu";
 import logo from "../../assets/logo.png";
 
 function Header({ ...props }) {
@@ -15,7 +15,7 @@ function Header({ ...props }) {
       <Link to="/">
         <Image height="40px" src={logo} alt="logo.png" />
       </Link>
-      <Menu menuList={menuList} padding="0 0 0 40px" fontColor="green" />
+      <Menu menuList={MENU_LIST} padding="0 0 0 40px" fontColor="green" />
     </HeaderStyled>
   );
 }

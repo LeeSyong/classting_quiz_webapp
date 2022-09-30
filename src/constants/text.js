@@ -7,8 +7,8 @@ const INTRO = [
 
 const ERROR = "에러가 발생했습니다. 다시 시도해주세요.";
 
-const REVIEW_TEXT = ["정답 개수", "오답 개수"];
-
 const REVIEW_MENU = ["다시 풀기", "오답 노트"];
 
-export { INTRO, ERROR, REVIEW_TEXT, REVIEW_MENU };
+const RESULT_TABLE_HEAD = ["풀이 시간", "정답 개수", "오답 개수"];
+
+export { INTRO, ERROR, REVIEW_MENU, RESULT_TABLE_HEAD };

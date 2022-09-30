@@ -5,32 +5,30 @@ import { Pie } from "react-chartjs-2";
 import { Chart, ArcElement, Tooltip } from "chart.js";
 
 import ReviewMenu from "../molecules/ReviewMenu";
-import Text from "../atoms/Text";
+import Table from "../atoms/Table";
 
 import palette from "../../styles/palette";
 
-import { REVIEW_TEXT } from "../../constants/text";
+import { RESULT_TABLE_HEAD } from "../../constants/text";
 
 Chart.register([ArcElement, Tooltip]);
 
 function ResultSection({
   chartData,
+  elapsedTime,
   handleRetryButtonClick,
   handleNoteButtonClick,
 }) {
   return (
     <ResultsStyled>
       {chartData.length !== 0 && (
-        <ResultText>
-          {REVIEW_TEXT.map((value, index) => (
-            <Text
-              key={index}
-              className="large"
-              value={`${value}: ${chartData[index]}개`}
-              textAlign="center"
-            />
-          ))}
-        </ResultText>
+        <Table
+          tableHead={RESULT_TABLE_HEAD}
+          tableData={[elapsedTime, chartData[0], chartData[1]]}
+          boxShadow={`0 0 0 2px ${palette.green}`}
+          fontColor={palette.green}
+          fontSize="1.1rem"
+        />
       )}
       <ResultChart>
         <Pie
@@ -67,20 +65,13 @@ const ResultsStyled = styled.div`
   margin: 0 auto;
 `;
 
-const ResultText = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 100%;
-  gap: 20px;
-`;
-
 const ResultChart = styled.div`
   margin: 40px auto;
 `;
 
 ResultSection.propTypes = {
   chartData: PropTypes.arrayOf(PropTypes.number),
+  elapsedTime: PropTypes.string,
   handleRetryButtonClick: PropTypes.func,
   handleNoteButtonClick: PropTypes.func,
 };

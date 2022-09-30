@@ -49,6 +49,7 @@ module.exports = () => {
         favicon: false,
         template: path.resolve(__dirname, "./public/index.html"),
         minify: true,
+        publicPath: "/",
       }),
       new CleanWebpackPlugin(),
     ],

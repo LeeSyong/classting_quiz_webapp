@@ -63,7 +63,7 @@ const ButtonStyled = styled.button`
 Button.propTypes = {
   type: PropTypes.string,
   className: PropTypes.oneOf(["small", "medium", "large"]),
-  children: PropTypes.string.isRequired,
+  children: PropTypes.string,
   onClick: PropTypes.func,
 };
 

@@ -6,19 +6,33 @@ import Button from "../atoms/Button";
 
 import palette from "../../styles/palette";
 
-function Examples({ examples, onClick, ...props }) {
+function Examples({
+  examples,
+  selectedAnswer,
+  correctAnswer,
+  onClick,
+  ...props
+}) {
   return (
     <ExamplesStyled {...props}>
       {examples.map((example) => (
         <Button
-          key={example.id}
+          key={example}
+          dangerouslySetInnerHTML={{ __html: example }}
           type="button"
           className="medium"
-          children={example.content}
           onClick={onClick}
           padding="10px 10px"
           backgroundColor="green"
           fontColor="white"
+          {...(example === selectedAnswer && {
+            backgroundColor: "red",
+          })}
+          {...(selectedAnswer &&
+            example === correctAnswer && {
+              backgroundColor: "blue",
+            })}
+          disabled={selectedAnswer}
         />
       ))}
     </ExamplesStyled>
@@ -58,10 +72,8 @@ const ExamplesStyled = styled.div`
 `;
 
 Examples.propTypes = {
-  examples: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      content: PropTypes.string.isRequired,
-    }).isRequired,
-  ),
+  examples: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selectedAnswer: PropTypes.string,
+  correctAnswer: PropTypes.string,
+  onClick: PropTypes.func,
 };

@@ -33,7 +33,7 @@ function Quiz() {
 
   const handleNextClick = useCallback(() => {
     if (parseInt(quizId) === 5) {
-      navigate("/quiz/results");
+      navigate("/quiz/result");
     } else {
       navigate(`/quiz/${parseInt(quizId) + 1}`);
     }

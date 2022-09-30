@@ -10,7 +10,11 @@ function Main() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  localStorage.removeItem("startTime");
+
   const handleStartClick = () => {
+    localStorage.setItem("startTime", new Date().getTime());
+
     dispatch(fetchQuiz());
 
     navigate("/quiz/1");

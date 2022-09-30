@@ -16,7 +16,7 @@ Info.args = {
 export const Question = Template.bind({});
 Question.args = {
   className: "medium",
-  value: "Q: 이것은 무엇일까요?",
+  value: "Q. 이것은 무엇일까요?",
 };
 
 export const Result = Template.bind({});

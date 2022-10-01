@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { resetSelectedAnswer } from "../store/quizSlice";
 import useElapsedTime from "../hook/useElapsedTime";
 
 import BaseTemplate from "../components/templates/BaseTemplate";
@@ -10,9 +11,21 @@ import { ERROR } from "../constants/text";
 
 function Result() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { status, data, error } = useSelector((state) => state.quizzes);
   const [chartData, setchartData] = useState([]);
   const elapsedTime = useElapsedTime();
+
+  const handleRetryButtonClick = useCallback(() => {
+    navigate("/quiz/1");
+
+    dispatch(resetSelectedAnswer());
+  }, [navigate, dispatch]);
+
+  const handleNoteButtonClick = useCallback(
+    () => navigate("/notes"),
+    [navigate],
+  );
 
   useEffect(() => {
     if (status === "idle" && data.allIds.length) {
@@ -20,7 +33,7 @@ function Result() {
       let incorrectCount = 0;
 
       data.allIds.forEach((id) => {
-        if (data[id].isCorrect) {
+        if (data.byId[id].isCorrect) {
           correctCount++;
         } else {
           incorrectCount++;
@@ -31,7 +44,7 @@ function Result() {
     }
 
     if (status === "idle" && error) {
-      alert(ERROR);
+      alert(ERROR.CANNOT_GET_RESULT);
 
       navigate("/");
     }
@@ -43,8 +56,8 @@ function Result() {
         <ResultSection
           chartData={chartData}
           elapsedTime={elapsedTime}
-          handleRetryButtonClick={() => navigate("/quiz/1")}
-          handleNoteButtonClick={() => navigate("/notes")}
+          handleRetryButtonClick={handleRetryButtonClick}
+          handleNoteButtonClick={handleNoteButtonClick}
         />
       }
     />

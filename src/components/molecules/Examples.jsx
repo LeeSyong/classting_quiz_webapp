@@ -39,7 +39,7 @@ function Examples({
   );
 }
 
-export default Examples;
+export default React.memo(Examples);
 
 const ExamplesStyled = styled.div`
   display: flex;

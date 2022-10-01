@@ -17,7 +17,7 @@ const Button = ({ type, className, children, onClick, ...props }) => {
   );
 };
 
-export default Button;
+export default React.memo(Button);
 
 const ButtonStyled = styled.button`
   display: inline-block;

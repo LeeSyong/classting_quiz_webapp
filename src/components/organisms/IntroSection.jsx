@@ -7,7 +7,14 @@ import Intro from "../molecules/Intro";
 function IntroSection({ onClick }) {
   return (
     <IntroSectionStyled>
-      <Intro onClick={onClick} />
+      <Intro
+        onClick={onClick}
+        width="80%"
+        maxWidth="600px"
+        height="70%"
+        hasBorder={true}
+        borderColor="green"
+      />
     </IntroSectionStyled>
   );
 }
@@ -21,6 +28,6 @@ const IntroSectionStyled = styled.section`
   height: 100%;
 `;
 
-IntroSection.proptypes = {
+IntroSection.propTypes = {
   onClick: PropTypes.func,
 };

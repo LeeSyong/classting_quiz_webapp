@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { update_isCorrect } from "../store/quizSlice";
+import { checkIfIsCorrect } from "../store/quizSlice";
 
 import BaseTemplate from "../components/templates/BaseTemplate";
 import QuizSection from "../components/organisms/QuizSection";
@@ -20,15 +20,14 @@ function Quiz() {
   const handleAnswerClick = useCallback(
     (event) => {
       const selectedAnswer = event.target.textContent;
-      const correctAnswer = data[quizId - 1].correct_answer;
 
       setSelectedAnswer(selectedAnswer);
 
-      if (selectedAnswer === correctAnswer) {
-        dispatch(update_isCorrect({ id: quizId - 1 }));
-      }
+      dispatch(
+        checkIfIsCorrect({ id: quizId - 1, selected_answer: selectedAnswer }),
+      );
     },
-    [data, quizId, dispatch],
+    [quizId, dispatch],
   );
 
   const handleNextClick = useCallback(() => {
@@ -40,14 +39,14 @@ function Quiz() {
   }, [quizId, navigate]);
 
   useEffect(() => {
-    if (status === "idle" && data[quizId - 1]) {
-      if (data[quizId - 1].isCorrect) {
+    if (status === "idle" && data.byId[quizId - 1]) {
+      if (data.byId[quizId - 1].selected_answer) {
         return;
       }
 
       setSelectedAnswer("");
 
-      const currentQuiz = data[quizId - 1];
+      const currentQuiz = data.byId[quizId - 1];
       const quizData = {
         question: currentQuiz.question,
         answers: [
@@ -57,15 +56,15 @@ function Quiz() {
       };
 
       setQuizData(quizData);
-      setCorrectAnswer(data[quizId - 1].correct_answer);
+      setCorrectAnswer(data.byId[quizId - 1].correct_answer);
     }
 
     if (status === "idle" && error) {
-      alert(ERROR);
+      alert(ERROR.CANNOT_GET_QUIZ);
 
       navigate("/");
     }
-  }, [status, data, quizId, error, navigate]);
+  }, [status, data, quizId, error, navigate, dispatch]);
 
   return (
     <BaseTemplate

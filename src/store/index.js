@@ -5,6 +5,8 @@ import logger from "redux-logger";
 import quizSlice from "./quizSlice";
 
 export default configureStore({
-  reducer: quizSlice.reducer,
+  reducer: {
+    quizzes: quizSlice.reducer,
+  },
   middleware: [logger, thunk],
 });

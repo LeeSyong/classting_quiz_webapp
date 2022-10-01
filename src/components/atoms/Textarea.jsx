@@ -4,32 +4,34 @@ import styled, { css } from "styled-components";
 
 import palette from "../../styles/palette";
 
-const Input = ({ name, value, placeholder, ...props }) => {
+const Textarea = ({ name, value, placeholder, onChange, ...props }) => {
   return (
-    <InputStyled
+    <TextareaStyled
       name={name}
       value={value}
       placeholder={placeholder}
+      onChange={onChange}
       {...props}
     />
   );
 };
 
-export default Input;
+export default Textarea;
 
-const InputStyled = styled.input`
+const TextareaStyled = styled.textarea`
   ${({
-    width = "auto",
-    height = "auto",
-    margin = "10px",
+    width = "100%",
+    height = "100%",
+    margin = "0",
     padding = "12px 10px",
     backgroundColor = "transparent",
-    borderRadius = "4px",
+    borderRadius = "10px",
     hasBorder = true,
     borderColor = "black",
     fontColor = "black",
     placeholderColor = "gray",
-    fontSize = "14px",
+    fontSize = "1rem",
+    resize = "none",
   }) => css`
     width: ${width};
     height: ${height};
@@ -43,11 +45,13 @@ const InputStyled = styled.input`
       color: ${palette[placeholderColor]};
     }
     font-size: ${fontSize};
-  `}
+    resize: ${resize};
+  `};
 `;
 
-Input.propTypes = {
+Textarea.propTypes = {
   name: PropTypes.string,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   placeholder: PropTypes.string,
+  onChange: PropTypes.func,
 };

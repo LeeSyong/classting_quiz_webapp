@@ -1,14 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  quizzes: {
-    status: "idle",
-    data: {
-      byDd: {},
-      allIds: [],
-    },
-    error: null,
+  status: "idle",
+  data: {
+    byId: {},
+    allIds: [],
   },
+  error: null,
 };
 
 export const fetchQuiz = createAsyncThunk(
@@ -34,20 +32,33 @@ const quizSlice = createSlice({
   name: "quizSlice",
   initialState,
   reducers: {
-    update_isCorrect: (state, action) => {
-      const { id } = action.payload;
+    checkIfIsCorrect: (state, action) => {
+      const { id, selected_answer } = action.payload;
 
-      state.quizzes.data[id].isCorrect = true;
+      state.data.byId[id] = {
+        ...state.data.byId[id],
+        isCorrect: selected_answer === state.data.byId[id].correct_answer,
+        selected_answer: selected_answer,
+      };
+    },
+    resetSelectedAnswer: (state, action) => {
+      state.data.allIds.forEach((id) => {
+        state.data.byId[id].isCorrect = false;
+        state.data.byId[id].selected_answer = "";
+      });
+    },
+    updateNote: (state, action) => {
+      const { id, note } = action.payload;
+
+      state.data.byId[id].note = note;
     },
   },
   extraReducers: {
-    [fetchQuiz.pending.type]: (state) => {
-      state.quizzes = {
-        status: "loading",
-        data: {},
-        error: null,
-      };
-    },
+    [fetchQuiz.pending.type]: (state, action) => ({
+      status: "loading",
+      data: {},
+      error: null,
+    }),
     [fetchQuiz.fulfilled.type]: (state, action) => {
       const { results } = action.payload;
 
@@ -57,34 +68,30 @@ const quizSlice = createSlice({
         correct_answer: result.correct_answer,
         incorrect_answers: result.incorrect_answers,
         isCorrect: false,
+        selected_answer: "",
         note: "",
       }));
 
-      state.quizzes = {
-        ...state.quizzes,
-        status: "idle",
-        data: {
-          byId: {},
-          allIds: [],
-        },
-        error: null,
+      state.status = "idle";
+      state.data = {
+        byId: {},
+        allIds: [],
       };
 
       quizzes.forEach((quiz) => {
-        state.quizzes.data[quiz.id] = quiz;
-        state.quizzes.data.allIds.push(quiz.id);
+        state.data.byId[quiz.id] = quiz;
+        state.data.allIds.push(quiz.id);
       });
     },
-    [fetchQuiz.rejected.type]: (state, action) => {
-      state.quizzes = {
-        status: "idle",
-        data: {},
-        error: action.payload,
-      };
-    },
+    [fetchQuiz.rejected.type]: (state, action) => ({
+      status: "idle",
+      data: {},
+      error: action.payload,
+    }),
   },
 });
 
-export const { update_isCorrect } = quizSlice.actions;
+export const { checkIfIsCorrect, resetSelectedAnswer, updateNote } =
+  quizSlice.actions;
 
 export default quizSlice;

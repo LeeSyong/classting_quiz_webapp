@@ -21,6 +21,6 @@ const IntroSectionStyled = styled.section`
   height: 100%;
 `;
 
-IntroSection.proptypes = {
+IntroSection.propTypes = {
   onClick: PropTypes.func,
 };

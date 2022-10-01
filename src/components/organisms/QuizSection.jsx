@@ -22,7 +22,7 @@ function QuizSection({
       {quizData && (
         <>
           <Text
-            className="medium"
+            className="large"
             value={`Q. ${quizData.question}`}
             padding="5px"
           />

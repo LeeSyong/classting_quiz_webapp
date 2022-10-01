@@ -53,7 +53,7 @@ function ResultSection({
   );
 }
 
-export default ResultSection;
+export default React.memo(ResultSection);
 
 const ResultsStyled = styled.div`
   display: flex;

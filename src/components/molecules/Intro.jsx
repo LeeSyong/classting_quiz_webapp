@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import Button from "../atoms/Button";
 import Text from "../atoms/Text";
+
+import palette from "../../styles/palette";
 
 import { INTRO } from "../../constants/text";
 
@@ -42,11 +44,28 @@ const IntroStyled = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
-  padding: 80px;
-  border-radius: 10px;
-  gap: 40px;
+  ${({
+    width = "100%",
+    maxWidth = "100%",
+    height = "100%",
+    margin = "0 auto",
+    padding = "80px",
+    hasBorder = false,
+    borderRadius = "10px",
+    borderWeight = "2px",
+    borderColor = "black",
+  }) => css`
+    width: ${width}
+    max-width: ${maxWidth};
+    height: ${height};
+    margin: ${margin};
+    padding: ${padding};
+    border-radius: ${borderRadius};
+    border: ${
+      hasBorder ? `${borderWeight} solid ${palette[borderColor]}` : "none"
+    };
+    gap: 40px;
+  `}
 `;
 
 const IntroTextWrapper = styled.div`

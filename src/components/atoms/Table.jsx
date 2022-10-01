@@ -29,13 +29,17 @@ export default Table;
 
 const TableStyled = styled.table`
   ${({
+    tableLayout = "fixed",
     width = "100%",
+    margin = null,
     backgroundColor = "transparent",
     borderRadius = "20px",
     borderStyle = "hidden",
     boxShadow = `0 0 0 2px ${palette.black}`,
   }) => css`
+    table-layout: ${tableLayout};
     width: ${width};
+    margin: ${margin};
     backgroundcolor: ${backgroundColor};
     border-radius: ${borderRadius};
     border-style: ${borderStyle};
@@ -43,15 +47,21 @@ const TableStyled = styled.table`
   `}
   th,
   td {
+    overflow: hidden;
+    text-overflow: ellipsis;
     padding: 10px;
-    border: 2px solid ${palette.green};
+    border: ${({ borderColor = palette.green }) => `2px solid ${borderColor}`};
     color: ${({ fontColor }) => fontColor || "inherit"};
     text-align: ${({ textAlign }) => textAlign || "center"};
+    vertical-align: ${({ verticalAlign }) => verticalAlign || "middle"};
     font-size: ${({ fontSize }) => fontSize || "inherit"};
+    white-space: nowrap;
   }
 `;
 
 Table.propTypes = {
   tableHead: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  tableData: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  tableData: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.node]),
+  ).isRequired,
 };

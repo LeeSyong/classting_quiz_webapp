@@ -3,6 +3,7 @@ module.exports = {
     browser: true,
     node: true,
     es2021: true,
+    jest: true,
   },
   ignorePatterns: ["node_modules/", ".eslintrc.*", "package.json"],
   extends: [
@@ -12,10 +13,8 @@ module.exports = {
     "plugin:import/recommended",
     "plugin:jsx-a11y/recommended",
     "plugin:prettier/recommended",
-    "airbnb/hooks",
     "prettier",
   ],
-  plugins: ["react", "react-hooks", "import", "jsx-a11y"],
   rules: {
     "prettier/prettier": [
       "error",
@@ -29,17 +28,26 @@ module.exports = {
     "no-dupe-else-if": ["error"],
     "no-unused-vars": ["warn"],
     "no-irregular-whitespace": ["error"],
-    "camelcase": ["error"],
     "curly": ["warn"],
     "eqeqeq": ["warn"],
     "no-var": ["error"],
     "prefer-const": ["warn"],
     "prefer-destructuring": ["warn"],
     "react/prop-types": ["warn"],
+    "react/no-children-prop": ["off"],
+    "import/named": ["off"],
+    "import/export": ["off"],
   },
   parserOptions: {
     parser: "babel-parser",
     sourceType: "module",
     allowImportExportEverywhere: true,
+  },
+  settings: {
+    "import/resolver": {
+      node: {
+        extensions: [".js", ".jsx"],
+      }
+    },
   },
 };

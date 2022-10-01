@@ -17,7 +17,7 @@ const Button = ({ type, className, children, onClick, ...props }) => {
   );
 };
 
-export default Button;
+export default React.memo(Button);
 
 const ButtonStyled = styled.button`
   display: inline-block;
@@ -63,7 +63,7 @@ const ButtonStyled = styled.button`
 Button.propTypes = {
   type: PropTypes.string,
   className: PropTypes.oneOf(["small", "medium", "large"]),
-  children: PropTypes.string.isRequired,
+  children: PropTypes.string,
   onClick: PropTypes.func,
 };
 

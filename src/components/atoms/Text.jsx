@@ -6,9 +6,11 @@ import palette from "../../styles/palette";
 
 function Text({ className, value, ...props }) {
   return (
-    <TextStyled className={className} {...props}>
-      {value}
-    </TextStyled>
+    <TextStyled
+      dangerouslySetInnerHTML={{ __html: value }}
+      className={className}
+      {...props}
+    />
   );
 }
 
@@ -40,15 +42,18 @@ const TextStyled = styled.span`
   `}
   &.large {
     font-size: 1.3rem;
+    line-height: 2;
     font-weight: bold;
     letter-spacing: 0.05rem;
   }
   &.medium {
     font-size: 1.1rem;
+    line-height: 1.5;
     letter-spacing: 0.03rem;
   }
   &.small {
     font-size: 1rem;
+    line-height: 1;
     letter-spacing: 0.03rem;
   }
 `;

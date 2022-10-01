@@ -3,6 +3,7 @@ module.exports = {
     browser: true,
     node: true,
     es2021: true,
+    jest: true,
   },
   ignorePatterns: ["node_modules/", ".eslintrc.*", "package.json"],
   extends: [
@@ -34,6 +35,8 @@ module.exports = {
     "prefer-destructuring": ["warn"],
     "react/prop-types": ["warn"],
     "react/no-children-prop": ["off"],
+    "import/named": ["off"],
+    "import/export": ["off"],
   },
   parserOptions: {
     parser: "babel-parser",
